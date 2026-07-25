@@ -13,7 +13,7 @@ export default function Navbar() {
     { name: "Upload", href: "/upload" },
     { name: "Align", href: "/align" },
     { name: "Analyze", href: "/analyze" },
-    { name: "Results", href: "/results" },
+    { name: "Color & Symbolism", href: "/color-analysis" },
   ];
 
   return (

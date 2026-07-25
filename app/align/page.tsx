@@ -17,22 +17,22 @@ const INITIAL_ARTWORK_STATE = {
 
 export default function AlignPage() {
   const router = useRouter();
-  const { referenceImage, artworkImage } = useImageStore();
+  const { referenceImage, artworkImage, alignmentTransform, gridSize: storeGridSize, setAlignmentTransform, setGridSize: setStoreGridSize } = useImageStore();
 
   // Konva Image states
   const [refKonvaImage, setRefKonvaImage] = useState<HTMLImageElement | null>(null);
   const [artKonvaImage, setArtKonvaImage] = useState<HTMLImageElement | null>(null);
 
   // Artwork transformation states
-  const [artworkScale, setArtworkScale] = useState(INITIAL_ARTWORK_STATE.scale);
-  const [artworkX, setArtworkX] = useState(INITIAL_ARTWORK_STATE.x);
-  const [artworkY, setArtworkY] = useState(INITIAL_ARTWORK_STATE.y);
-  const [artworkRotation, setArtworkRotation] = useState(INITIAL_ARTWORK_STATE.rotation);
-  const [artworkOpacity, setArtworkOpacity] = useState(INITIAL_ARTWORK_STATE.opacity);
+  const [artworkScale, setArtworkScale] = useState(alignmentTransform.scale || INITIAL_ARTWORK_STATE.scale);
+  const [artworkX, setArtworkX] = useState(alignmentTransform.x || INITIAL_ARTWORK_STATE.x);
+  const [artworkY, setArtworkY] = useState(alignmentTransform.y || INITIAL_ARTWORK_STATE.y);
+  const [artworkRotation, setArtworkRotation] = useState(alignmentTransform.rotation || INITIAL_ARTWORK_STATE.rotation);
+  const [artworkOpacity, setArtworkOpacity] = useState(alignmentTransform.opacity || INITIAL_ARTWORK_STATE.opacity);
 
   // Grid states
   const [showGrid, setShowGrid] = useState(true);
-  const [gridSize, setGridSize] = useState(8); // Default 8x8
+  const [gridSize, setGridSize] = useState(storeGridSize || 8);
   const [selectedSquareId, setSelectedSquareId] = useState<string | null>(null);
 
   // Canvas dimensions
@@ -68,6 +68,14 @@ export default function AlignPage() {
   }, [referenceImage, artworkImage]);
 
   const handleContinueToAnalyze = () => {
+    setAlignmentTransform({
+      scale: artworkScale,
+      x: artworkX,
+      y: artworkY,
+      rotation: artworkRotation,
+      opacity: artworkOpacity,
+    });
+    setStoreGridSize(gridSize);
     router.push('/analyze');
   };
 
@@ -264,7 +272,7 @@ export default function AlignPage() {
               Reset Alignment
             </button>
             <button
-              onClick={() => router.push('/analyze')}
+              onClick={handleContinueToAnalyze}
               className="px-6 py-2 rounded-md text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             >
               Continue to Analyze

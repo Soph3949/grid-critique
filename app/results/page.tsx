@@ -1,7 +1,5 @@
+import { redirect } from 'next/navigation';
+
 export default function ResultsPage() {
-  return (
-    <div className="p-10">
-      Results Page
-    </div>
-  );
+  redirect('/color-analysis');
 }
