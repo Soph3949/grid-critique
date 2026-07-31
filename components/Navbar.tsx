@@ -17,12 +17,17 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="bg-white border-b border-gray-200 dark:bg-gray-900 dark:border-gray-800">
+    <nav style={{ background: '#FFFDF9', borderBottom: '1px solid #EDE0D4' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex">
             <div className="flex-shrink-0 flex items-center">
-              <span className="text-xl font-bold text-gray-900 dark:text-white">Grid Critique</span>
+              <span
+                className="text-xl font-bold"
+                style={{ color: '#3D2C2C' }}
+              >
+                🎨 Grid Critique
+              </span>
             </div>
             <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
               {navLinks.map((link) => {
@@ -31,11 +36,11 @@ export default function Navbar() {
                   <Link
                     key={link.name}
                     href={link.href}
-                    className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition-colors ${
-                      isActive
-                        ? "border-blue-500 text-gray-900 dark:text-white"
-                        : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 dark:hover:border-gray-700"
-                    }`}
+                    className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition-colors`}
+                    style={{
+                      borderBottomColor: isActive ? '#E8A4B8' : 'transparent',
+                      color: isActive ? '#3D2C2C' : '#8C7B72',
+                    }}
                   >
                     {link.name}
                   </Link>
@@ -47,7 +52,8 @@ export default function Navbar() {
             <button
               onClick={() => setIsOpen(!isOpen)}
               type="button"
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
+              className="inline-flex items-center justify-center p-2 rounded-md focus:outline-none"
+              style={{ color: '#8C7B72' }}
               aria-controls="mobile-menu"
               aria-expanded="false"
             >
@@ -75,11 +81,12 @@ export default function Navbar() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={`block pl-3 pr-4 py-2 border-l-4 text-base font-medium transition-colors ${
-                    isActive
-                      ? "bg-blue-50 border-blue-500 text-blue-700 dark:bg-gray-800 dark:border-blue-500 dark:text-white"
-                      : "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-300"
-                  }`}
+                  className={`block pl-3 pr-4 py-2 border-l-4 text-base font-medium transition-colors`}
+                  style={{
+                    borderLeftColor: isActive ? '#E8A4B8' : 'transparent',
+                    background: isActive ? '#FFF5F7' : 'transparent',
+                    color: isActive ? '#3D2C2C' : '#8C7B72',
+                  }}
                   onClick={() => setIsOpen(false)}
                 >
                   {link.name}

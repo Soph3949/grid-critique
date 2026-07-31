@@ -67,24 +67,49 @@ export default function UploadCard({
   }, [allowedTypes, maxSizeMB, onFileUpload]);
 
   return (
-    <div className="flex flex-col items-center justify-center p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md h-full">
-      <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">{title}</h2>
+    <div
+      className="flex flex-col items-center justify-center p-6 rounded-2xl shadow-sm h-full"
+      style={{ background: '#FFFDF9', border: '1.5px solid #EDE0D4' }}
+    >
+      <h2 className="text-xl font-semibold mb-4" style={{ color: '#3D2C2C' }}>{title}</h2>
       <div
         onDrop={onDrop}
         onDragOver={onDragOver}
         onClick={() => document.getElementById(`${title.toLowerCase().replace(/ /g, '-')}-file-input`)?.click()}
-        className={`border-2 border-dashed rounded-lg p-6 w-full h-64 flex flex-col items-center justify-center text-center transition-colors cursor-pointer
-          ${error
-            ? 'border-red-500 bg-red-50 dark:bg-red-900/20'
-            : 'border-gray-300 dark:border-gray-600 hover:border-blue-500 hover:bg-gray-50 dark:hover:bg-gray-700'}
-        `}
+        className={`border-2 border-dashed rounded-xl p-6 w-full h-64 flex flex-col items-center justify-center text-center transition-all cursor-pointer`}
+        style={
+          error
+            ? { borderColor: '#E8A4B8', background: '#FFF5F7' }
+            : {
+                borderColor: '#D9C8BC',
+                background: '#FAF7F2',
+              }
+        }
+        onMouseEnter={(e) => {
+          if (!error) {
+            (e.currentTarget as HTMLDivElement).style.borderColor = '#E8A4B8';
+            (e.currentTarget as HTMLDivElement).style.background = '#FFF5F7';
+          }
+        }}
+        onMouseLeave={(e) => {
+          if (!error) {
+            (e.currentTarget as HTMLDivElement).style.borderColor = '#D9C8BC';
+            (e.currentTarget as HTMLDivElement).style.background = '#FAF7F2';
+          }
+        }}
       >
         {previewUrl ? (
           <img src={previewUrl} alt="Preview" className="max-h-full max-w-full object-contain" />
         ) : (
-          <p className="text-gray-500 dark:text-gray-400">
-            Drag and drop an image here, or click to select
-          </p>
+          <div className="flex flex-col items-center space-y-2">
+            <div className="text-3xl">🖼️</div>
+            <p className="text-sm" style={{ color: '#8C7B72' }}>
+              Drag and drop an image here, or click to select
+            </p>
+            <p className="text-xs" style={{ color: '#B0A099' }}>
+              JPG, PNG, WEBP up to {maxSizeMB}MB
+            </p>
+          </div>
         )}
         <input
           id={`${title.toLowerCase().replace(/ /g, '-')}-file-input`}
@@ -94,9 +119,9 @@ export default function UploadCard({
           className="hidden"
         />
       </div>
-      {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+      {error && <p className="text-sm mt-2" style={{ color: '#C47A90' }}>{error}</p>}
       {file && !error && (
-        <p className="text-gray-600 dark:text-gray-300 text-sm mt-2">File: {file.name}</p>
+        <p className="text-sm mt-2" style={{ color: '#9DB8A0' }}>✓ {file.name}</p>
       )}
     </div>
   );

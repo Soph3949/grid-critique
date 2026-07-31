@@ -85,12 +85,20 @@ export default function AlignPage() {
 
   if (!referenceImage || !artworkImage || !refKonvaImage || !artKonvaImage) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8 text-center">
-        <h1 className="text-4xl font-extrabold text-gray-900 dark:text-white mb-4">No Images Uploaded</h1>
-        <p className="text-lg text-gray-700 dark:text-gray-300 mb-8">Please upload both a reference image and an artwork image to proceed.</p>
+      <div
+        className="flex flex-col items-center justify-center min-h-screen py-12 px-4 sm:px-6 lg:px-8 text-center"
+        style={{ background: '#FAF7F2' }}
+      >
+        <h1 className="text-4xl font-extrabold mb-4" style={{ color: '#3D2C2C' }}>No Images Uploaded</h1>
+        <p className="text-lg mb-8" style={{ color: '#8C7B72' }}>Please upload both a reference image and an artwork image to proceed.</p>
         <button
           onClick={() => router.push('/upload')}
-          className="px-8 py-3 rounded-md text-lg font-medium text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          className="px-8 py-3 rounded-2xl text-lg font-semibold transition-all duration-200 focus:outline-none"
+          style={{
+            background: 'linear-gradient(135deg, #E8A4B8 0%, #D4967A 100%)',
+            color: '#fff',
+            boxShadow: '0 6px 20px rgba(232, 164, 184, 0.35)',
+          }}
         >
           Go to Upload Page
         </button>
@@ -99,9 +107,15 @@ export default function AlignPage() {
   }
 
   return (
-    <div className="flex flex-col items-center min-h-screen bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
-      <h1 className="text-4xl font-extrabold text-gray-900 dark:text-white mb-8">Align Images</h1>
-      <div className="relative w-[800px] h-[600px] bg-gray-200 dark:bg-gray-700 rounded-lg shadow-md mb-8 overflow-hidden">
+    <div
+      className="flex flex-col items-center min-h-screen py-12 px-4 sm:px-6 lg:px-8"
+      style={{ background: '#FAF7F2' }}
+    >
+      <h1 className="text-4xl font-extrabold mb-8" style={{ color: '#3D2C2C' }}>Align Images</h1>
+      <div
+        className="relative w-[800px] h-[600px] rounded-2xl shadow-sm mb-8 overflow-hidden"
+        style={{ background: '#EDE0D4', border: '1.5px solid #D9C8BC' }}
+      >
         <Stage width={canvasWidth} height={canvasHeight}>
           <Layer>
             {refKonvaImage && (
@@ -144,16 +158,19 @@ export default function AlignPage() {
             />
           )}
         </Stage>
-        <p className="absolute top-2 left-2 text-white bg-black bg-opacity-50 px-2 py-1 rounded">Reference: {referenceImage.name}</p>
-        <p className="absolute top-2 right-2 text-white bg-black bg-opacity-50 px-2 py-1 rounded">Artwork: {artworkImage.name}</p>
+        <p className="absolute top-2 left-2 text-xs px-2 py-1 rounded-lg" style={{ color: '#fff', background: 'rgba(61, 44, 44, 0.55)' }}>Reference: {referenceImage.name}</p>
+        <p className="absolute top-2 right-2 text-xs px-2 py-1 rounded-lg" style={{ color: '#fff', background: 'rgba(61, 44, 44, 0.55)' }}>Artwork: {artworkImage.name}</p>
       </div>
 
       {/* Toolbar Area */}
-      <div className="w-full max-w-6xl p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md flex flex-col lg:flex-row justify-between items-center space-y-4 lg:space-y-0 lg:space-x-4">
-        <div className="flex flex-wrap items-center space-x-4 space-y-2 lg:space-y-0">
+      <div
+        className="w-full max-w-6xl p-5 rounded-2xl shadow-sm flex flex-col lg:flex-row justify-between items-center space-y-4 lg:space-y-0 lg:space-x-4"
+        style={{ background: '#FFFDF9', border: '1.5px solid #EDE0D4' }}
+      >
+        <div className="flex flex-wrap items-center gap-4">
           {/* Artwork Scale Control */}
           <div className="flex items-center space-x-2">
-            <label htmlFor="artwork-scale-slider" className="text-gray-700 dark:text-gray-300">Scale:</label>
+            <label htmlFor="artwork-scale-slider" className="text-sm font-medium" style={{ color: '#5C4F4F' }}>Scale:</label>
             <input
               id="artwork-scale-slider"
               type="range"
@@ -162,46 +179,46 @@ export default function AlignPage() {
               step="0.01"
               value={artworkScale}
               onChange={(e) => setArtworkScale(Number(e.target.value))}
-              className="w-32 md:w-48"
+              className="w-32 md:w-40 accent-rose-300"
             />
-            <span className="text-gray-700 dark:text-gray-300">{(artworkScale * 100).toFixed(0)}%</span>
+            <span className="text-sm font-mono" style={{ color: '#8C7B72' }}>{(artworkScale * 100).toFixed(0)}%</span>
           </div>
 
           {/* Artwork X Position Control */}
           <div className="flex items-center space-x-2">
-            <label htmlFor="artwork-x-slider" className="text-gray-700 dark:text-gray-300">X:</label>
+            <label htmlFor="artwork-x-slider" className="text-sm font-medium" style={{ color: '#5C4F4F' }}>X:</label>
             <input
               id="artwork-x-slider"
               type="range"
-              min="-400" // Half of canvasWidth
-              max="400"  // Half of canvasWidth
+              min="-400"
+              max="400"
               step="1"
               value={artworkX}
               onChange={(e) => setArtworkX(Number(e.target.value))}
-              className="w-32 md:w-48"
+              className="w-32 md:w-40"
             />
-            <span className="text-gray-700 dark:text-gray-300">{artworkX.toFixed(0)}px</span>
+            <span className="text-sm font-mono" style={{ color: '#8C7B72' }}>{artworkX.toFixed(0)}px</span>
           </div>
 
           {/* Artwork Y Position Control */}
           <div className="flex items-center space-x-2">
-            <label htmlFor="artwork-y-slider" className="text-gray-700 dark:text-gray-300">Y:</label>
+            <label htmlFor="artwork-y-slider" className="text-sm font-medium" style={{ color: '#5C4F4F' }}>Y:</label>
             <input
               id="artwork-y-slider"
               type="range"
-              min="-300" // Half of canvasHeight
-              max="300"  // Half of canvasHeight
+              min="-300"
+              max="300"
               step="1"
               value={artworkY}
               onChange={(e) => setArtworkY(Number(e.target.value))}
-              className="w-32 md:w-48"
+              className="w-32 md:w-40"
             />
-            <span className="text-gray-700 dark:text-gray-300">{artworkY.toFixed(0)}px</span>
+            <span className="text-sm font-mono" style={{ color: '#8C7B72' }}>{artworkY.toFixed(0)}px</span>
           </div>
 
           {/* Artwork Opacity Control */}
           <div className="flex items-center space-x-2">
-            <label htmlFor="artwork-opacity-slider" className="text-gray-700 dark:text-gray-300">Opacity:</label>
+            <label htmlFor="artwork-opacity-slider" className="text-sm font-medium" style={{ color: '#5C4F4F' }}>Opacity:</label>
             <input
               id="artwork-opacity-slider"
               type="range"
@@ -210,14 +227,14 @@ export default function AlignPage() {
               step="0.01"
               value={artworkOpacity}
               onChange={(e) => setArtworkOpacity(Number(e.target.value))}
-              className="w-32 md:w-48"
+              className="w-32 md:w-40"
             />
-            <span className="text-gray-700 dark:text-gray-300">{(artworkOpacity * 100).toFixed(0)}%</span>
+            <span className="text-sm font-mono" style={{ color: '#8C7B72' }}>{(artworkOpacity * 100).toFixed(0)}%</span>
           </div>
 
           {/* Artwork Rotation Control */}
           <div className="flex items-center space-x-2">
-            <label htmlFor="artwork-rotation-slider" className="text-gray-700 dark:text-gray-300">Rotation:</label>
+            <label htmlFor="artwork-rotation-slider" className="text-sm font-medium" style={{ color: '#5C4F4F' }}>Rotation:</label>
             <input
               id="artwork-rotation-slider"
               type="range"
@@ -226,30 +243,35 @@ export default function AlignPage() {
               step="1"
               value={artworkRotation}
               onChange={(e) => setArtworkRotation(Number(e.target.value))}
-              className="w-32 md:w-48"
+              className="w-32 md:w-40"
             />
-            <span className="text-gray-700 dark:text-gray-300">{artworkRotation.toFixed(0)}°</span>
+            <span className="text-sm font-mono" style={{ color: '#8C7B72' }}>{artworkRotation.toFixed(0)}°</span>
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center space-x-4 space-y-2 lg:space-y-0">
+        <div className="flex flex-wrap items-center gap-3">
           {/* Grid Toggle */}
           <button
             onClick={() => setShowGrid(!showGrid)}
-            className="px-4 py-2 rounded-md text-sm font-medium text-white transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500
-                       bg-purple-600 hover:bg-purple-700 dark:bg-purple-500 dark:hover:bg-purple-600"
+            className="px-4 py-2 rounded-xl text-sm font-medium transition-all"
+            style={{
+              background: showGrid ? 'rgba(157, 184, 160, 0.15)' : '#FAF7F2',
+              border: showGrid ? '1.5px solid rgba(157, 184, 160, 0.5)' : '1.5px solid #EDE0D4',
+              color: showGrid ? '#7A9D82' : '#8C7B72',
+            }}
           >
             {showGrid ? 'Hide Grid' : 'Show Grid'}
           </button>
 
           {/* Grid Size Selector */}
           <div className="flex items-center space-x-2">
-            <label htmlFor="grid-size-selector" className="text-gray-700 dark:text-gray-300">Grid Size:</label>
+            <label htmlFor="grid-size-selector" className="text-sm font-medium" style={{ color: '#5C4F4F' }}>Grid:</label>
             <select
               id="grid-size-selector"
               value={gridSize}
               onChange={(e) => setGridSize(Number(e.target.value))}
-              className="px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              className="px-3 py-2 rounded-xl text-sm focus:outline-none"
+              style={{ background: '#FAF7F2', border: '1.5px solid #EDE0D4', color: '#3D2C2C' }}
             >
               <option value={4}>4x4</option>
               <option value={8}>8x8</option>
@@ -258,7 +280,7 @@ export default function AlignPage() {
           </div>
 
           {/* Action Buttons */}
-          <div className="flex space-x-4">
+          <div className="flex space-x-3">
             <button
               onClick={() => {
                 setArtworkScale(INITIAL_ARTWORK_STATE.scale);
@@ -267,15 +289,21 @@ export default function AlignPage() {
                 setArtworkRotation(INITIAL_ARTWORK_STATE.rotation);
                 setArtworkOpacity(INITIAL_ARTWORK_STATE.opacity);
               }}
-              className="px-6 py-2 rounded-md text-sm font-medium text-gray-700 bg-gray-200 hover:bg-gray-300 dark:text-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              className="px-5 py-2 rounded-xl text-sm font-medium transition-all"
+              style={{ background: '#FAF7F2', border: '1.5px solid #EDE0D4', color: '#5C4F4F' }}
             >
               Reset Alignment
             </button>
             <button
               onClick={handleContinueToAnalyze}
-              className="px-6 py-2 rounded-md text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              className="px-5 py-2 rounded-xl text-sm font-semibold transition-all"
+              style={{
+                background: 'linear-gradient(135deg, #E8A4B8 0%, #D4967A 100%)',
+                color: '#fff',
+                boxShadow: '0 4px 14px rgba(232, 164, 184, 0.3)',
+              }}
             >
-              Continue to Analyze
+              Continue to Analyze →
             </button>
           </div>
         </div>
